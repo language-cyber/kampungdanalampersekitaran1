@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ekspedisi Kampung | IGCSE Malay</title>
+    <title>Kampung Halaman | IGCSE Malay</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -16,32 +16,29 @@
         * { box-sizing: border-box; }
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
-            margin: 0; overflow: hidden; background: var(--paper);
+            margin: 0; overflow-x: hidden; background: var(--paper);
             color: #000000;
         }
         .serif { font-family: 'Merriweather', serif; }
         
-        /* --- ANIMATIONS --- */
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .animate-in { animation: fadeIn 0.8s ease-out forwards; }
 
-        /* --- UI COMPONENTS --- */
         .btn-primary {
             background: #000000; color: white; padding: 1rem 2rem; 
             font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em;
-            transition: all 0.3s ease; border: 2px solid #000000;
+            transition: all 0.3s ease; border: 2px solid #000000; cursor: pointer;
         }
         .btn-primary:hover { background: #333333; transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        .btn-primary:disabled { background: #9ca3af; border-color: #9ca3af; cursor: not-allowed; transform: none; box-shadow: none; }
 
         .glass-card {
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         }
 
-        /* --- TEACHER SLIDES LAYOUTS --- */
-        .slide { display: none; height: 100vh; width: 100vw; position: absolute; top: 0; left: 0; }
+        .slide { display: none; min-height: 100vh; width: 100vw; position: relative; }
         .slide.active { display: flex; }
 
         .slide-cinematic {
@@ -61,37 +58,36 @@
             flex-direction: column; padding: 5rem; justify-content: center;
         }
 
-        /* --- STUDENT COMPONENTS --- */
         .postcard-bg {
             background-image: radial-gradient(#d1d5db 1px, transparent 1px);
             background-size: 20px 20px;
             background-color: #fff;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            transform: rotate(-1deg);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: rotate(-0.5deg);
             color: #000000;
         }
 
         .cloze-input {
             border: none; border-bottom: 2px dashed #000000; background: transparent;
             font-family: 'Merriweather', serif; font-style: italic; color: #000000; font-weight: bold;
-            text-align: center; width: 100px; outline: none; transition: all 0.2s;
-            display: inline-block;
+            text-align: center; min-width: 150px; outline: none; transition: all 0.2s;
         }
         .cloze-input:focus { border-bottom: 2px solid #000000; background: #f3f4f6; }
-        .cloze-input.correct { color: #16a34a; border-bottom: 2px solid #16a34a; }
-        .cloze-input.wrong { color: #dc2626; border-bottom: 2px solid #dc2626; }
 
-        .chat-bubble { max-width: 80%; padding: 1rem; margin-bottom: 1rem; border-radius: 1rem; position: relative; }
-        .bubble-bot { background: #fff; color: #000000; border: 1px solid #e5e7eb; border-bottom-left-radius: 0; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .bubble-user { background: #000000; color: white; border-bottom-right-radius: 0; margin-left: auto; }
+        .chat-bubble { max-width: 85%; padding: 1.25rem; margin-bottom: 1rem; border-radius: 1.5rem; position: relative; line-height: 1.6; }
+        .bubble-bot { background: #fff; color: #000; border: 1.5px solid #000; border-bottom-left-radius: 0; }
+        .bubble-user { background: #000; color: #fff; border-bottom-right-radius: 0; margin-left: auto; }
 
         .nav-btn {
-            background: white; border: 2px solid #000; width: 50px; height: 50px; border-radius: 50%;
+            background: white; border: 2px solid #000; width: 45px; height: 45px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center; cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s;
-            color: #000;
+            transition: all 0.2s; color: #000;
         }
-        .nav-btn:hover { transform: scale(1.1); background: #000; color: white; }
+        .nav-btn:hover { background: #000; color: white; transform: scale(1.1); }
+        
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background-color: rgba(0,0,0,0.2); border-radius: 10px; }
     </style>
 </head>
 <body>
@@ -99,209 +95,258 @@
     <!-- Landing Page -->
     <section id="landing" class="h-screen w-full flex flex-col items-center justify-center relative overflow-hidden">
         <div class="absolute inset-0 z-0">
-            <!-- Background Landing Page -->
-            <img src="https://images.unsplash.com/photo-1596422846543-75c6fc197f07?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover opacity-90">
-            <div class="absolute inset-0 bg-black/40"></div>
+            <!-- URL ditukar kepada local file -->
+            <img src="kampung-bg.jpg" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1596422846543-75c6fc197f07?q=80&w=2070'">
+            <div class="absolute inset-0 bg-black/60"></div>
         </div>
-        <div class="z-10 text-center text-white space-y-8 animate-in p-8 glass-card rounded-xl max-w-2xl">
-            <p class="text-sm font-bold tracking-[0.3em] uppercase opacity-90 text-black">IGCSE Malay FL &middot; Tema Alam</p>
-            <h1 class="text-6xl md:text-7xl serif font-bold leading-tight text-black">Ekspedisi<br><span class="italic font-light">Kampung</span></h1>
-            <div class="w-full space-y-4">
-                <input type="text" id="userName" placeholder="Nama Pelajar" class="w-full p-4 text-center text-black text-xl rounded bg-white/90 focus:bg-white border-2 border-black outline-none placeholder:text-gray-500">
-                <div id="error-msg" class="text-red-600 font-bold text-sm hidden">Sila masukkan nama.</div>
-                <div class="flex gap-4 justify-center pt-4">
-                    <button onclick="startMode('teacher')" class="px-6 py-3 bg-white hover:bg-gray-100 border-2 border-black text-black rounded text-sm font-bold tracking-widest transition">MOD GURU</button>
-                    <button onclick="startMode('student')" class="px-8 py-3 bg-black hover:bg-gray-800 text-white rounded text-sm font-bold tracking-widest shadow-lg transition">MULA EKSPEDISI</button>
+        <div class="z-10 text-center space-y-8 animate-in p-10 glass-card rounded-3xl max-w-xl border-2 border-black/10">
+            <p class="text-xs font-bold tracking-[0.4em] uppercase text-black/60">Neo Interactive &middot; IGCSE Malay</p>
+            <h1 class="text-6xl serif font-bold text-black leading-tight">Kampung<br><span class="italic font-light opacity-70">Halaman</span></h1>
+            <p class="text-sm font-bold text-slate-500">Pelajaran Lanjutan: Suasana & Pendapat</p>
+            <div class="space-y-4">
+                <input type="text" id="userName" placeholder="Nama Anda" class="w-full p-4 text-center text-black text-xl rounded-xl bg-white border-2 border-black outline-none shadow-inner">
+                <div id="error-msg" class="text-red-600 font-bold text-sm hidden">Sila masukkan nama untuk mula.</div>
+                <div class="flex gap-3 justify-center pt-4">
+                    <button onclick="startMode('teacher')" class="px-6 py-4 bg-white hover:bg-gray-100 border-2 border-black text-black rounded-xl text-xs font-bold tracking-widest transition">MOD GURU</button>
+                    <button onclick="startMode('student')" class="px-10 py-4 bg-black hover:bg-gray-800 text-white rounded-xl text-xs font-bold tracking-widest shadow-xl transition active:scale-95">MULA KELAS</button>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- TEACHER MODE -->
-    <section id="teacher-mode" class="hidden relative h-screen w-full">
+    <section id="teacher-mode" class="hidden relative h-screen w-full overflow-hidden">
         <div id="slides-container"></div>
-        <div class="fixed bottom-8 left-1/2 -translate-x-1/2 flex gap-6 z-[100] items-center bg-white/90 px-6 py-3 rounded-full shadow-xl backdrop-blur border border-black">
-            <button onclick="changeSlide(-1)" class="nav-btn w-10 h-10"><i data-lucide="arrow-left"></i></button>
-            <span id="slide-number" class="font-mono font-bold text-black">1/10</span>
-            <button onclick="changeSlide(1)" class="nav-btn w-10 h-10"><i data-lucide="arrow-right"></i></button>
+        
+        <!-- Teacher Navigation & TLAC Tools -->
+        <div class="fixed bottom-8 left-1/2 -translate-x-1/2 flex gap-4 z-[100] items-center bg-white border-2 border-black px-6 py-4 rounded-3xl shadow-2xl">
+            <button onclick="changeSlide(-1)" class="nav-btn"><i data-lucide="chevron-left"></i></button>
+            <div class="px-4 border-r-2 border-black/10 text-center">
+                <span id="slide-number" class="block font-bold text-lg leading-none">1/15</span>
+                <span class="text-[10px] uppercase font-bold text-black/40">Slaid</span>
+            </div>
+            <!-- TLAC: Cold Call Button -->
+            <button onclick="teacherColdCall()" class="bg-blue-600 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 hover:bg-blue-700 transition">
+                <i data-lucide="user-plus" class="w-4 h-4"></i> COLD CALL
+            </button>
+            <button onclick="changeSlide(1)" class="nav-btn"><i data-lucide="chevron-right"></i></button>
+        </div>
+
+        <!-- Cold Call Modal -->
+        <div id="cold-call-modal" class="hidden fixed inset-0 z-[200] bg-black/80 flex items-center justify-center p-6">
+            <div class="bg-white border-4 border-black p-12 rounded-[3rem] text-center max-w-lg w-full transform animate-in">
+                <p class="text-xs font-bold uppercase tracking-widest text-blue-600 mb-4">Strategi TLAC: Cold Call</p>
+                <h2 id="picked-student" class="text-6xl font-bold text-black mb-8 italic">Siapa bertuah?</h2>
+                <div class="flex gap-4">
+                    <button onclick="teacherColdCall()" class="flex-1 py-4 bg-slate-100 border-2 border-black rounded-2xl font-bold">PUTAR LAGI</button>
+                    <button onclick="document.getElementById('cold-call-modal').classList.add('hidden')" class="flex-1 py-4 bg-black text-white rounded-2xl font-bold uppercase text-xs tracking-widest">TUTUP</button>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- STUDENT MODE -->
     <section id="student-mode" class="hidden h-screen w-full bg-[#fdfbf7] relative overflow-hidden flex flex-col">
-        <header class="p-4 flex justify-between items-center bg-white/50 backdrop-blur-sm border-b border-black z-50">
-            <div class="flex items-center gap-2 text-black">
-                <i data-lucide="compass" class="w-6 h-6"></i>
-                <span class="font-bold tracking-wider text-sm uppercase">Ekspedisi: <span id="display-name">...</span></span>
-            </div>
+        <header class="p-5 flex justify-between items-center bg-white/80 border-b-2 border-black z-50">
             <div class="flex items-center gap-3">
-                 <div id="teacher-controls" class="hidden flex gap-2 bg-black p-1 rounded-lg animate-in">
-                    <button onclick="jumpToPhase(1)" class="text-xs bg-white hover:bg-gray-200 px-2 py-1 rounded font-bold">1</button>
-                    <button onclick="jumpToPhase(2)" class="text-xs bg-white hover:bg-gray-200 px-2 py-1 rounded font-bold">2</button>
-                    <button onclick="jumpToPhase(3)" class="text-xs bg-white hover:bg-gray-200 px-2 py-1 rounded font-bold">3</button>
-                    <button onclick="jumpToPhase(4)" class="text-xs bg-white hover:bg-gray-200 px-2 py-1 rounded font-bold">4</button>
-                    <button onclick="jumpToPhase(5)" class="text-xs bg-white hover:bg-gray-200 px-2 py-1 rounded font-bold">5</button>
-                    <button onclick="toggleTeacherControls()" class="text-xs text-white px-2 py-1 font-bold">X</button>
+                <div class="w-8 h-8 bg-black text-white rounded-lg flex items-center justify-center"><i data-lucide="map" class="w-4 h-4"></i></div>
+                <span class="font-bold tracking-tighter text-lg uppercase">Pelajar: <span id="display-name" class="text-blue-600">...</span></span>
+            </div>
+            <div class="flex items-center gap-4">
+                 <div id="teacher-controls" class="hidden flex gap-2 bg-slate-100 p-1.5 rounded-xl border border-black/10">
+                    <button onclick="jumpToPhase(1)" class="w-8 h-8 bg-white border border-black rounded-lg font-bold text-xs hover:bg-black hover:text-white transition">1</button>
+                    <button onclick="jumpToPhase(2)" class="w-8 h-8 bg-white border border-black rounded-lg font-bold text-xs hover:bg-black hover:text-white transition">2</button>
+                    <button onclick="jumpToPhase(3)" class="w-8 h-8 bg-white border border-black rounded-lg font-bold text-xs hover:bg-black hover:text-white transition">3</button>
+                    <button onclick="jumpToPhase(4)" class="w-8 h-8 bg-white border border-black rounded-lg font-bold text-xs hover:bg-black hover:text-white transition">4</button>
+                    <button onclick="jumpToPhase(5)" class="w-8 h-8 bg-white border border-black rounded-lg font-bold text-xs hover:bg-black hover:text-white transition">5</button>
                 </div>
-                <button onclick="teacherBypass()" class="opacity-20 hover:opacity-100"><i data-lucide="key" class="w-4 h-4"></i></button>
+                <button onclick="teacherBypass()" class="text-black/30 hover:text-black transition" title="Akses Guru (Bypass)"><i data-lucide="lock" class="w-5 h-5"></i></button>
             </div>
         </header>
 
-        <main class="flex-1 relative flex flex-col items-center justify-center p-4 overflow-y-auto">
+        <main class="flex-1 relative flex flex-col items-center justify-start p-6 overflow-y-auto">
             
-            <!-- Fasa 1: Uji Mata Penulis (Advanced - 2 Rounds) -->
-            <div id="phase-1" class="w-full max-w-2xl text-center space-y-6">
-                <!-- Dynamic Content Container -->
-                <div id="phase1-content" class="w-full">
-                    <!-- Injected via JS -->
-                </div>
+            <!-- Phase 1: Uji Mata (Analisis Pemikiran) -->
+            <div id="phase-1" class="w-full max-w-2xl text-center space-y-8 animate-in mt-10">
+                <div id="phase1-content" class="w-full"></div>
             </div>
 
-            <!-- Fasa 2: Advanced Chat -->
-            <div id="phase-2" class="hidden w-full max-w-2xl h-full flex flex-col">
-                <div class="bg-white p-4 rounded-t-xl border-b border-black flex justify-between items-center shadow-sm">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-black text-white rounded-full flex items-center justify-center text-xl">🤖</div>
-                        <div><h3 class="font-bold text-black">Neo 2.0</h3><p class="text-xs text-black font-medium">Mod: Perbualan Aktif</p></div>
-                    </div>
-                    <button onclick="toggleHint()" class="text-black hover:bg-yellow-100 border border-black p-2 rounded-full"><i data-lucide="lightbulb"></i></button>
-                </div>
-                <div id="chat-window" class="flex-1 bg-white/50 p-4 overflow-y-auto space-y-4"></div>
-                <div id="current-hint" class="hidden bg-yellow-50 text-black font-bold p-3 text-sm text-center border-t border-black"></div>
-                <div class="p-4 bg-white rounded-b-xl shadow-lg border-t border-black mt-auto">
-                    <div class="flex gap-2">
-                        <input type="text" id="studentInput" class="flex-1 bg-gray-100 rounded-full px-6 py-3 outline-none focus:ring-2 focus:ring-black border border-black text-black font-medium placeholder:text-gray-500" placeholder="Taip jawapan lengkap..." onkeypress="handleEnter(event)">
-                        <button onclick="sendMessage()" class="bg-black text-white p-3 rounded-full hover:bg-gray-800 transition"><i data-lucide="send" class="w-5 h-5"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Fasa 3: Lensa Jurugambar -->
-            <div id="phase-3" class="hidden w-full max-w-3xl animate-in text-center">
-                <div class="bg-white p-8 rounded-xl border-4 border-black shadow-2xl">
-                    <div class="flex items-center justify-center gap-2 mb-4">
-                        <i data-lucide="camera" class="w-6 h-6"></i>
-                        <span class="font-bold text-xl uppercase tracking-widest">Lensa Jurugambar</span>
-                    </div>
-                    <div class="relative w-full h-64 bg-gray-200 mb-6 overflow-hidden rounded border-2 border-black">
-                        <!-- FIX: Use dedicated function for error handling to avoid syntax error -->
-                        <img src="senja-kampung.jpg" class="w-full h-full object-cover" onerror="handleImageError(this, 'senja-kampung.jpg')">
-                        <div class="absolute bottom-0 left-0 bg-black text-white px-4 py-1 text-xs font-bold">CABARAN: PERSEKITARAN</div>
-                    </div>
-                    <p class="text-lg font-serif italic mb-6">"Jangan beritahu saya langit itu cantik. Tunjukkan kepada saya bagaimana warna langit berubah apabila matahari terbenam."</p>
-                    <div class="space-y-4">
-                        <input type="text" id="cameraInput" class="w-full p-4 border-2 border-black rounded text-center text-xl font-medium placeholder:text-gray-400" placeholder="Langit berwarna jingga seperti...">
-                        <button onclick="submitCameraTask()" class="btn-primary w-full">HANTAR KEPSYEN</button>
-                    </div>
-                    <div id="camera-feedback" class="mt-4 font-bold text-red-600 hidden"></div>
-                </div>
-            </div>
-
-            <!-- Fasa 4: Poskad (EXTENDED + DRAWING) -->
-            <div id="phase-4" class="hidden w-full max-w-3xl animate-in pb-10">
-                <div class="postcard-bg p-8 md:p-12 relative rotate-1 transition hover:rotate-0 duration-500 border border-gray-300">
-                    <div class="absolute top-6 right-6 w-20 h-24 border-4 border-black flex items-center justify-center opacity-70"><i data-lucide="stamp" class="w-10 h-10 text-black"></i></div>
-                    <h2 class="serif text-2xl font-bold text-black mb-6 border-b-2 border-black inline-block pb-2">Kampung Saya</h2>
+            <!-- Phase 2: Latihan Kata Hubung (10 Soalan DBP) -->
+            <div id="phase-2" class="hidden w-full max-w-3xl animate-in text-center mt-10">
+                <div class="bg-white p-10 rounded-[2.5rem] border-2 border-black shadow-2xl relative">
+                    <button onclick="jumpToPhase(1)" class="absolute top-6 left-6 text-sm font-bold text-slate-400 hover:text-black transition flex items-center gap-1"><i data-lucide="arrow-left" class="w-4 h-4"></i> KEMBALI</button>
+                    <h3 class="font-bold text-2xl mb-2 mt-4">🧠 Kuasa Kata Hubung</h3>
+                    <p class="text-slate-500 mb-8">Jawab ke-10 soalan ini untuk membuka kunci fasa seterusnya. Sila berhati-hati dengan struktur ayat.</p>
                     
-                    <!-- NEW EXTENDED CLOZE PASSAGE -->
-                    <div class="text-lg text-black font-medium leading-loose text-justify space-y-4">
-                        <p class="font-bold text-black mb-2 uppercase text-xs tracking-widest border-b border-black inline-block pb-1">Lengkapkan Poskad:</p>
-                        
-                        <p class="font-serif">
-                            Ke hadapan sahabatku,
-                            <br><br>
-                            Apa khabar? Rumah datuk saya di sini sangat cantik dan dikelilingi oleh <input type="text" id="cloze1" class="cloze-input" placeholder="(Nature)">.
-                            Pada waktu pagi, udaranya rasa sungguh <input type="text" id="cloze2" class="cloze-input" placeholder="(Atmosphere)"> dan sejuk.
-                            
-                            Saya paling suka mendengar bunyi air sungai yang <input type="text" id="cloze3" class="cloze-input" placeholder="(Sound Adj)">.
-                            Penduduk kampung di sini juga sangat <input type="text" id="cloze4" class="cloze-input" placeholder="(Personality)"> dan suka menolong.
-                            
-                            Secara jujurnya, saya rasa <input type="text" id="cloze5" class="cloze-input" placeholder="(Emotion)"> dapat lari dari kesibukan bandar.
-                            Saya harap awak boleh <input type="text" id="cloze6" class="cloze-input" placeholder="(Action)"> ke sini suatu hari nanti.
-                        </p>
+                    <div id="q-container" class="space-y-6 text-left">
+                        <!-- Soalan 1-10 akan di-render di sini menggunakan JavaScript -->
                     </div>
                     
-                    <!-- DRAWING CANVAS -->
-                    <div class="mt-8 border-t-2 border-dashed border-black pt-4">
-                        <p class="font-bold text-black mb-2 uppercase text-xs tracking-widest">Lakaran Pemandangan Kampung:</p>
-                        <div class="relative w-full h-64 border-2 border-black bg-white cursor-crosshair touch-none" id="canvas-container">
-                            <canvas id="drawingCanvas" class="w-full h-full"></canvas>
-                        </div>
-                        <div class="flex justify-end gap-2 mt-2">
-                             <button onclick="clearCanvas()" class="text-xs font-bold text-red-600 hover:text-red-800 uppercase tracking-widest flex items-center gap-1 border border-red-600 px-3 py-1 rounded">Padam Lukisan</button>
-                        </div>
-                    </div>
-
-                    <div class="mt-8 flex justify-between items-center">
-                        <div class="flex flex-col"><span class="text-xs text-black uppercase font-bold">Daripada:</span><span class="font-bold font-serif text-black text-xl" id="signer-final">...</span></div>
-                        <div class="flex gap-4">
-                            <button onclick="toggleTranslation()" class="text-xs font-bold text-black hover:underline uppercase tracking-widest flex items-center gap-1"><i data-lucide="languages" class="w-4 h-4"></i> Bantuan</button>
-                            <button onclick="submitClozePassage()" class="btn-primary rounded shadow-lg text-sm">HANTAR POSKAD & LUKISAN</button>
-                        </div>
-                    </div>
-                    <div id="translation-box" class="hidden mt-6 p-4 bg-gray-100 border border-black rounded text-sm text-black italic font-medium">
-                        1. Surrounded by [nature noun].<br>
-                        2. The air feels very [atmosphere].<br>
-                        3. River sound is [sound adjective].<br>
-                        4. The villagers are [personality].<br>
-                        5. I feel [emotion] to escape the city.<br>
-                        6. Hope you can [action/visit] here someday.
-                    </div>
-                    <div id="cloze-feedback" class="mt-4 text-center font-bold"></div>
+                    <button id="btn-next-phase-3" onclick="jumpToPhase(3)" class="btn-primary w-full rounded-2xl mt-8 opacity-50 cursor-not-allowed" disabled>TERUSKAN KE CHAT NEO</button>
                 </div>
             </div>
 
-            <!-- Fasa 5: Success -->
-            <div id="phase-5" class="hidden text-center animate-in">
-                <div class="w-24 h-24 bg-black rounded-full flex items-center justify-center mx-auto mb-6"><i data-lucide="check" class="w-12 h-12 text-white"></i></div>
-                <h2 class="serif text-4xl font-bold text-black mb-2">Hebat!</h2>
-                <p class="text-black font-medium mb-8">Anda telah tamat sesi ekspedisi ini.</p>
-                <button onclick="location.reload()" class="text-sm font-bold text-black hover:underline uppercase tracking-widest">MULAKAN SEMULA</button>
+            <!-- Phase 3: Chat with Neo (Penapisan Ketat) -->
+            <div id="phase-3" class="hidden w-full max-w-2xl h-[80vh] flex flex-col animate-in mt-10 relative">
+                <button onclick="jumpToPhase(2)" class="absolute -top-10 left-0 text-sm font-bold text-slate-400 hover:text-black transition flex items-center gap-1"><i data-lucide="arrow-left" class="w-4 h-4"></i> KEMBALI</button>
+                <div class="bg-black p-5 rounded-t-3xl flex justify-between items-center">
+                    <div class="flex items-center gap-3 text-white">
+                        <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-xl">🤖</div>
+                        <div><h3 class="font-bold leading-none">Neo 2.0</h3><p class="text-[10px] text-white/60 uppercase font-bold tracking-widest mt-1">AI Assistant</p></div>
+                    </div>
+                </div>
+                <div id="chat-window" class="flex-1 bg-white border-x-2 border-black p-6 overflow-y-auto space-y-4 shadow-inner"></div>
+                <div class="p-5 bg-white border-2 border-black rounded-b-3xl">
+                    <div class="flex gap-3">
+                        <input type="text" id="studentInput" class="flex-1 bg-slate-50 border-2 border-slate-200 rounded-2xl px-6 py-4 outline-none focus:border-black transition font-medium" placeholder="Taip jawapan lengkap di sini..." onkeypress="handleEnter(event)">
+                        <button onclick="sendMessage()" class="bg-black text-white w-14 h-14 rounded-2xl flex items-center justify-center hover:bg-gray-800 transition"><i data-lucide="send" class="w-6 h-6"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 4: Cabaran Visual (Diperketatkan - 2 Gambar) -->
+            <div id="phase-4" class="hidden w-full max-w-3xl animate-in text-center mt-10 relative">
+                <button onclick="jumpToPhase(3)" class="absolute -top-10 left-0 text-sm font-bold text-slate-400 hover:text-black transition flex items-center gap-1"><i data-lucide="arrow-left" class="w-4 h-4"></i> KEMBALI</button>
+                <div class="bg-white p-10 rounded-[2.5rem] border-2 border-black shadow-2xl">
+                    <h3 class="font-bold text-2xl mb-2">📸 Cabaran Lensa: Ujian Pemerhatian</h3>
+                    <p class="text-slate-500 mb-8">Bina ayat lengkap menggunakan <span class="font-bold text-black">S-V-O-K</span> berdasarkan dua situasi di bawah.</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-8 mb-8 text-left">
+                        <!-- Gambar 1: Suasana -->
+                        <div class="space-y-4">
+                            <div class="relative aspect-video bg-slate-100 rounded-2xl overflow-hidden border-2 border-black">
+                                <!-- URL ditukar kepada local file -->
+                                <img src="sawah-padi.jpg" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1590420485404-f86d22b8ab18?q=80&w=2070'">
+                            </div>
+                            <p class="text-sm font-bold uppercase tracking-widest text-blue-600">Situasi 1: Suasana</p>
+                            <textarea id="cameraInput1" rows="3" class="w-full p-4 border-2 border-black rounded-xl font-medium text-sm" placeholder="Contoh: Suasana di sawah padi sangat damai kerana..."></textarea>
+                        </div>
+
+                        <!-- Gambar 2: Aktiviti -->
+                        <div class="space-y-4">
+                            <div class="relative aspect-video bg-slate-100 rounded-2xl overflow-hidden border-2 border-black">
+                                <!-- URL ditukar kepada local file -->
+                                <img src="memancing-sungai.jpg" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1544991583-60b647ec053e?q=80&w=2070'">
+                            </div>
+                            <p class="text-sm font-bold uppercase tracking-widest text-emerald-600">Situasi 2: Aktiviti</p>
+                            <textarea id="cameraInput2" rows="3" class="w-full p-4 border-2 border-black rounded-xl font-medium text-sm" placeholder="Contoh: Beberapa orang penduduk memancing ikan di sungai dan..."></textarea>
+                        </div>
+                    </div>
+
+                    <button onclick="submitCameraTask()" class="btn-primary w-full rounded-2xl">HANTAR KEDUA-DUA HURAIAN</button>
+                </div>
+            </div>
+
+            <!-- Phase 5: Poskad (Diperpanjangkan) -->
+            <div id="phase-5" class="hidden w-full max-w-5xl animate-in pb-10 mt-10 relative">
+                <button onclick="jumpToPhase(4)" class="absolute -top-10 left-0 text-sm font-bold text-slate-400 hover:text-black transition flex items-center gap-1"><i data-lucide="arrow-left" class="w-4 h-4"></i> KEMBALI</button>
+                <div class="postcard-bg p-10 md:p-16 border-2 border-black relative">
+                    <div class="absolute top-10 right-10 w-24 h-32 border-4 border-black/10 flex items-center justify-center"><i data-lucide="mail" class="w-12 h-12 text-black/10"></i></div>
+                    
+                    <h2 class="serif text-3xl font-bold mb-10 border-b-2 border-black inline-block">Poskad Dari Kampung</h2>
+                    
+                    <div class="grid md:grid-cols-2 gap-12">
+                        <div class="space-y-6 text-lg font-serif italic leading-loose">
+                            <p>Ke hadapan sahabatku,</p>
+                            <p>
+                                Saya sedang bercuti di kampung. Kampung saya terletak di <input type="text" id="cloze1" class="cloze-input" placeholder="(Nama Tempat)">. 
+                                Suasana di sini sangat <input type="text" id="cloze2" class="cloze-input w-40" placeholder="(Sifat Suasana)"> 
+                                kerana <input type="text" id="cloze3" class="cloze-input w-48" placeholder="(Nyatakan sebab)">.
+                            </p>
+                            <p>
+                                Pada waktu petang, saya dan keluarga akan <input type="text" id="cloze4" class="cloze-input w-full mt-2" placeholder="(Nyatakan aktiviti)">.
+                            </p>
+                            <p>
+                                Pada pendapat saya, kehidupan di kampung lebih baik daripada di bandar kerana <input type="text" id="cloze5" class="cloze-input w-full mt-2" placeholder="(Berikan pendapat anda)">.
+                            </p>
+                        </div>
+                        <div class="space-y-4">
+                            <p class="text-[10px] font-bold uppercase tracking-widest">Lakaran Memori Paling Indah:</p>
+                            <div class="w-full h-64 border-2 border-black bg-white rounded-xl relative overflow-hidden" id="canvas-container">
+                                <canvas id="drawingCanvas"></canvas>
+                            </div>
+                            <button onclick="clearCanvas()" class="text-[10px] font-bold text-red-600 uppercase border border-red-600 px-3 py-1 rounded-lg">Padam Lukisan</button>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-12 flex justify-between items-end border-t-2 border-black/5 pt-8">
+                        <div>
+                            <span class="text-[10px] font-bold uppercase block text-black/40">Yang Benar,</span>
+                            <span id="signer-final" class="serif text-2xl font-bold">...</span>
+                        </div>
+                        <button onclick="submitClozePassage()" class="btn-primary rounded-xl px-12">HANTAR POSKAD</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Success Phase 6 (Tunjuk Hasil Kerja Pelajar) -->
+            <div id="phase-6" class="hidden w-full max-w-3xl animate-in mt-10 pb-10">
+                <div class="text-center mb-8">
+                    <div class="w-20 h-20 bg-emerald-500 text-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-xl"><i data-lucide="check" class="w-10 h-10"></i></div>
+                    <h2 class="serif text-4xl font-bold mb-2">Selesai!</h2>
+                    <p class="text-slate-500">Anda telah berjaya membina ayat lanjutan dan memberikan pendapat dengan cemerlang.</p>
+                </div>
+                
+                <!-- Ruang Hasil Kerja Pelajar yang disuntik via JS -->
+                <div id="student-result-container" class="bg-white p-8 sm:p-12 rounded-[2rem] border-2 border-black shadow-2xl mb-8">
+                    <!-- Kandungan dinamik -->
+                </div>
+
+                <div class="text-center">
+                    <button onclick="location.reload()" class="font-bold text-black border-b-2 border-black hover:text-blue-600 transition tracking-widest uppercase text-sm">MULA SEMULA (SESI BARU)</button>
+                </div>
             </div>
         </main>
     </section>
 
     <script>
-        // UPDATED SCRIPT URL
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz1PxtdstrlD9SUVDa9ZUTqW3HpTMq6Dyc7FPzKDHduZrxdk7g3Bb1BEvE0nbweh2_m/exec';
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyuvbg31wwLGyCoSvo1k3Wao6AaX9RyiYD0SdHfp55jkfxw7xncYPX25P4qX6E3DTI/exec';
         
         let currentSlide = 0;
         let userData = { name: '', role: '' };
         let chatStage = 0;
-        let lastHash = "";
-        let studentPreference = "";
-        let phase1Step = 0; 
+        let studentsList = ["Ali", "Sarah", "Chong", "Muthu", "Aisyah", "Zhi Hao", "Bella", "Daniel", "Fatin"];
+        let monitorInterval = null;
+        let lastMonitorHTML = ""; 
         
-        // Canvas Variables
         let canvas, ctx, isDrawing = false;
 
-        // --- IMAGE ERROR HANDLER (FIX FOR SYNTAX ERROR) ---
-        function handleImageError(img, fileName) {
-            img.onerror = null; 
-            img.parentElement.innerHTML = `<div class="flex flex-col items-center justify-center h-full w-full bg-gray-300 text-gray-500 font-bold p-4"><span>[GAMBAR TIADA]</span><span class="text-xs font-normal">Simpan fail: ${fileName}</span></div>`;
-        }
+        const qDataP2 = [
+            { q: "Penduduk bandar suka bercuti di kampung <span class='inline-block w-24 border-b-2 border-black mx-1'></span> udaranya sangat segar.", opts: ["Tetapi", "Kerana", "Atau"], ans: 1 },
+            { q: "Bandar raya sangat sibuk <span class='inline-block w-24 border-b-2 border-black mx-1'></span> kampung saya amat damai.", opts: ["Manakala", "Dan", "Lalu"], ans: 0 },
+            { q: "Pada waktu petang, bapa memancing ikan di sungai <span class='inline-block w-24 border-b-2 border-black mx-1'></span> abang bermain bola.", opts: ["Lalu", "Kerana", "Manakala"], ans: 2 },
+            { q: "Saya ingin mengikut datuk ke dusun <span class='inline-block w-24 border-b-2 border-black mx-1'></span> dilarang oleh ibu.", opts: ["Tetapi", "Atau", "Dan"], ans: 0 },
+            { q: "Amirul tidak dapat pulang ke kampung <span class='inline-block w-24 border-b-2 border-black mx-1'></span> tiket bas telah habis dijual.", opts: ["Manakala", "Kerana", "Lalu"], ans: 1 },
+            { q: "Awak mahu berbasikal mengelilingi bendang <span class='inline-block w-24 border-b-2 border-black mx-1'></span> berehat di pangkin?", opts: ["Dan", "Atau", "Tetapi"], ans: 1 },
+            { q: "Nenek mengambil cermin matanya <span class='inline-block w-24 border-b-2 border-black mx-1'></span> membaca surat khabar di serambi.", opts: ["Kerana", "Manakala", "Lalu"], ans: 2 },
+            { q: "Hujan turun dengan lebat <span class='inline-block w-24 border-b-2 border-black mx-1'></span> petani itu tetap meneruskan kerjanya di sawah.", opts: ["Lalu", "Atau", "Namun"], ans: 2 },
+            { q: "Suasana di kampung menjadi riuh-rendah <span class='inline-block w-24 border-b-2 border-black mx-1'></span> ketibaan rombongan pengantin.", opts: ["Semenjak", "Dan", "Tetapi"], ans: 0 },
+            { q: "Pak Ali membersihkan halaman rumah <span class='inline-block w-24 border-b-2 border-black mx-1'></span> isterinya menyapu sampah di dapur.", opts: ["Atau", "Kerana", "Sementara"], ans: 2 }
+        ];
+        let scoresP2 = new Array(qDataP2.length).fill(false);
 
-        // --- TEACHER SLIDES ---
         const teacherSlidesData = [
-            { layout: 'cinematic', bg: 'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?q=80&w=2070', title: 'Ekspedisi Kampung', subtitle: 'Tema: Kampung Halaman & Persekitaran' },
-            { layout: 'clean', title: 'Fokus Hari Ini', body: `<ul class="text-left space-y-6 text-xl font-medium text-black"><li>✅ <b>Kampung Halaman:</b> Cerita tentang rumah, keluarga, dan kenangan.</li><li>✅ <b>Persekitaran:</b> Cerita tentang alam (Sungai, Pokok, Bunyi).</li><li>✅ <b>Ayat Gambaran:</b> Guna perkataan yang boleh 'dilihat' dan 'didengar'.</li></ul>` },
-            { layout: 'split', titleLeft: 'AYAT BIASA', classLeft: 'bg-white text-black border-r-4 border-black', contentLeft: '<div class="space-y-4">Contoh:<br><b>"Rumah itu lama."</b><br><br>Masalah:<br>Terlalu ringkas. Tak ada perasaan.</div>', titleRight: 'AYAT GAMBARAN', classRight: 'bg-black text-white', contentRight: '<div class="space-y-4">Contoh:<br><b>"Rumah kayu itu nampak tua dan penuh memori."</b><br><br>Kesan:<br>Lebih menarik dan jelas.</div>', note: 'Tambah kata sifat (Adjektif) untuk mencantikkan ayat.' },
-            { layout: 'clean', title: 'Kosa Kata (Vocab)', body: `<div class="grid grid-cols-2 gap-8 text-left text-xl font-bold text-black"><div class="p-6 border-b-4 border-black"><span class="text-gray-500 text-sm uppercase">Bunyi (Sound)</span><br>Kicauan (Burung), Deruan (Air)</div><div class="p-6 bg-gray-100 border-b-4 border-black"><span class="text-gray-500 text-sm uppercase">Pergerakan (Movement)</span><br>Mengalir (Flow), Bergoyang (Sway)</div><div class="p-6 border-b-4 border-black"><span class="text-gray-500 text-sm uppercase">Sifat (Adjective)</span><br>Sunyi (Quiet), Cantik, Bersih</div><div class="p-6 bg-gray-100 border-b-4 border-black"><span class="text-gray-500 text-sm uppercase">Perasaan (Feeling)</span><br>Tenang (Calm), Gembira, Rindu</div></div>` },
-            { layout: 'clean', title: 'Live Monitor', isLive: true }
+            // URL ditukar kepada local file
+            { layout: 'cinematic', bg: 'kampung-bg.jpg', title: 'Kampung Halaman', subtitle: 'Pelajaran Lanjutan: Suasana & Pendapat' },
+            { layout: 'clean', title: 'Objektif Hari Ini', body: `<ul class="space-y-6 text-2xl font-medium"><li>📍 <strong>10 min:</strong> Mempelajari kosa kata "Suasana" (Atmosphere).</li><li>📍 <strong>15 min:</strong> Membina ayat majmuk menggunakan kata hubung.</li><li>📍 <strong>30 min:</strong> Menyatakan pendapat logik tentang persekitaran.</li></ul>` },
+            { layout: 'split', titleLeft: 'Bukan Sekadar Fakta', classLeft: 'bg-white', contentLeft: 'Untuk mendapat markah yang tinggi, kita perlu menghuraikan sesuatu menggunakan sebab dan pendapat.', titleRight: 'Formula', classRight: 'bg-black text-white', contentRight: 'Fakta + KATA HUBUNG + Sebab / Pendapat.<br><br>Contoh: Kampung aman <b>kerana</b> tiada kilang.' },
+            { layout: 'clean', title: '🍃 Kosa Kata: Suasana (Atmosphere)', body: `<div class="grid grid-cols-2 gap-8 text-2xl font-medium"><div class="p-6 bg-green-50 rounded-2xl border border-green-200">Udara yang segar (Fresh air)</div><div class="p-6 bg-blue-50 rounded-2xl border border-blue-200">Pemandangan indah (Beautiful scenery)</div><div class="p-6 bg-yellow-50 rounded-2xl border border-yellow-200">Suasana aman / damai (Peaceful)</div><div class="p-6 bg-slate-100 rounded-2xl border border-slate-300">Penduduk yang ramah (Friendly locals)</div></div>` },
+            { layout: 'clean', title: '🏗️ Kosa Kata: Pembangunan', body: `<div class="grid grid-cols-2 gap-8 text-2xl font-medium"><div class="p-6 bg-amber-50 rounded-2xl border border-amber-200">Infrastruktur moden (Modern infrastructure)</div><div class="p-6 bg-slate-50 rounded-2xl border border-slate-200">Kemudahan asas (Basic facilities)</div><div class="p-6 bg-orange-50 rounded-2xl border border-orange-200">Pencemaran udara (Air pollution)</div><div class="p-6 bg-red-50 rounded-2xl border border-red-200">Kesesakan lalu lintas (Traffic jam)</div></div>` },
+            { layout: 'clean', title: '🔗 Kata Hubung (Conjunctions)', body: `<p class="text-2xl mb-8">Gunakan kata hubung ini untuk memanjangkan ayat anda:</p><ul class="space-y-4 text-2xl font-medium bg-slate-100 p-8 rounded-2xl"><li>➕ <b>Dan</b> - Untuk menambah maklumat.</li><li>⚖️ <b>Tetapi / Manakala</b> - Untuk menunjukkan perbezaan / 2 perbuatan serentak.</li><li>❓ <b>Kerana</b> - Untuk memberikan sebab.</li></ul>` },
+            { layout: 'clean', title: 'Struktur Ayat Lanjutan (S-V-O-K)', body: `<div class="bg-blue-50 p-8 rounded-2xl border-2 border-blue-200 text-3xl font-bold text-center leading-loose">Subjek + Kata Kerja + Objek <br><span class="text-red-600">+ Keterangan / Sebab</span></div>` },
+            { layout: 'clean', title: 'Contoh Penggunaan', body: `<p class="text-3xl font-bold bg-slate-100 p-10 rounded-3xl text-center leading-loose"><span class="text-blue-600">Penduduk kampung</span> <span class="text-emerald-600">menghirup udara segar</span> <span class="text-red-600">kerana tiada asap kenderaan.</span></p>` },
+            { layout: 'clean', title: 'Contoh Penggunaan 2', body: `<p class="text-3xl font-bold bg-slate-100 p-10 rounded-3xl text-center leading-loose"><span class="text-blue-600">Bapa memancing ikan di sungai</span> <span class="text-emerald-600">manakala</span> <span class="text-red-600">abang bermain bola di padang.</span></p>` },
+            { layout: 'split', titleLeft: 'Menyatakan Pendapat', classLeft: 'bg-white', contentLeft: 'Cara terbaik untuk memberikan pendapat (opinion) adalah dengan frasa:', titleRight: 'Frasa Berguna', classRight: 'bg-emerald-50 text-emerald-900', contentRight: '<b>"Pada pendapat saya..."</b> (In my opinion...)<br><br><b>"Saya percaya bahawa..."</b> (I believe that...)' },
+            { layout: 'clean', title: 'Contoh Menyatakan Pendapat', body: `<p class="text-3xl font-bold bg-slate-100 p-10 rounded-3xl text-center leading-loose">"<b>Pada pendapat saya</b>, tinggal di kampung lebih sihat <b>kerana</b> persekitarannya bersih dan bebas pencemaran."</p>` },
+            { layout: 'clean', title: '✏️ Latihan Bersama (Stretch It)', body: `<div class="space-y-6 text-2xl font-medium"><p>Sambungkan ayat di bawah dengan sebab yang munasabah:</p><div class="p-6 border-2 border-dashed border-slate-400 rounded-2xl">Ramai orang suka pulang ke kampung pada hujung minggu <b>kerana</b> _____________________.</div></div>` },
+            { layout: 'clean', title: '✏️ Latihan Pendapat (Stretch It)', body: `<div class="space-y-6 text-2xl font-medium"><p>Berikan satu sebab untuk menyokong pendapat ini:</p><div class="p-6 border-2 border-dashed border-slate-400 rounded-2xl"><b>Pada pendapat saya</b>, kanak-kanak lebih gembira bermain di kampung <b>kerana</b> _____________________.</div></div>` },
+            { layout: 'split', titleLeft: 'Perbandingan (Bandar vs Kampung)', classLeft: 'bg-white', contentLeft: '🏙️ <b>Bandar:</b> Bangunan tinggi, banyak kenderaan, peluang pekerjaan, pencemaran.', titleRight: '', classRight: 'bg-black text-white', contentRight: '🏡 <b>Kampung:</b> Alam semula jadi, rumah tradisional, udara bersih, hidup berjiran yang erat.' },
+            { layout: 'live', title: 'Live Monitor', isLive: true }
         ];
 
-        // --- PHASE 1 DATA ---
-        const phase1Questions = [
-            { type: 'Kampung Halaman', img: 'rumah-kampung.jpg', title: 'Ujian 1: Rumah', options: [{ text: '"Ini rumah kayu lama yang ada di kampung."', type: 'fact', feedback: 'Terlalu asas. Ini ayat penyata fakta.' }, { text: '"Rumah papan usang itu berdiri sayu, dikelilingi kehijauan."', type: 'desc', feedback: 'Tepat! Ada emosi dan gambaran jelas.' }] },
-            { type: 'Persekitaran', img: 'sungai-desa.jpg', title: 'Ujian 2: Alam Semula Jadi', options: [{ text: '"Air sungai itu bersih dan mengalir laju."', type: 'fact', feedback: 'Ayat ini betul, tapi kurang "wow factor".' }, { text: '"Arus sungai menari-nari girang, memecah keheningan desa."', type: 'desc', feedback: 'Hebat! Penggunaan personifikasi (Menari).' }] }
-        ];
-
-        // --- ADVANCED CHAT LOGIC ---
-        const chatFlow = [
-            { id: 1, bot: "Hai! Saya Neo. Antara 'Kampung Halaman' (Rumah/Keluarga) dan 'Persekitaran' (Alam), mana satu yang paling awak rindu?", validate: (i) => i.length > 3, errorMsg: "Sila pilih satu.", next: (i) => { studentPreference = i; return 2; } },
-            { id: 2, bot: () => `Oh, ${studentPreference}? Menarik. Cuba gambarkan satu benda spesifik tentang ${studentPreference} yang awak ingat.`, validate: (i) => i.trim().split(/\s+/).length >= 4, errorMsg: "Sila berikan gambaran yang lebih lengkap (sekurang-kurangnya 4 patah perkataan).", next: (i) => 3 },
-            { id: 3, bot: "Sekarang fokus pada persekitaran. Apa bunyi yang paling sinonim dengan kampung awak?", validate: (i) => i.trim().split(/\s+/).length >= 3, errorMsg: "Bunyi apa? Sila huraikan.", next: (i) => 4 },
-            { id: 4, bot: "Hebat! Penerangan yang sangat jelas. Terima kasih.", validate: (i) => true, errorMsg: "", next: (i) => "DONE" }
+        const phase1Data = [
+            // URL ditukar kepada local file
+            { img: 'suasana-damai.jpg', q: "Berdasarkan gambar, mengapakah suasana ini kelihatan mendamaikan?", options: ["Kerana terdapat banyak bangunan dan kenderaan moden.", "Kerana ia dikelilingi alam semula jadi yang menghijau."] }
         ];
 
         function startMode(role) {
@@ -309,13 +354,16 @@
             if(role === 'student' && !nameVal) { document.getElementById('error-msg').classList.remove('hidden'); return; }
             userData.name = nameVal || 'Cikgu';
             userData.role = role;
+            document.getElementById('display-name').innerText = userData.name;
             document.getElementById('signer-final').innerText = userData.name;
             document.getElementById('landing').classList.add('hidden');
-            if(role === 'teacher') initTeacher();
-            else {
+            
+            if(role === 'teacher') {
+                initTeacher();
+            } else {
                 document.getElementById('student-mode').classList.remove('hidden');
                 renderPhase1();
-                setTimeout(initCanvas, 1000); // Init canvas early but hidden
+                renderPhase2(); 
             }
             lucide.createIcons();
         }
@@ -324,14 +372,143 @@
             const container = document.getElementById('slides-container');
             container.innerHTML = teacherSlidesData.map((d, i) => {
                 let content = '';
-                if (d.layout === 'cinematic') content = `<div class="slide slide-cinematic ${i===0?'active':''}" style="background-image: url('${d.bg}')"><div class="cinematic-content animate-in"><p class="tracking-widest uppercase text-sm mb-4 font-bold text-white shadow-black drop-shadow-md">${d.subtitle || ''}</p><h1 class="text-7xl font-serif font-bold text-white shadow-black drop-shadow-lg">${d.title}</h1></div></div>`;
-                else if (d.layout === 'split') content = `<div class="slide slide-split ${i===0?'active':''}"><div class="split-half ${d.classLeft}"><h2 class="text-4xl font-bold mb-6">${d.titleLeft}</h2><div class="text-xl leading-relaxed font-medium">${d.contentLeft}</div></div><div class="split-half ${d.classRight}"><h2 class="text-4xl font-bold mb-6">${d.titleRight}</h2><div class="text-xl leading-relaxed font-medium">${d.contentRight}</div></div>${d.note ? `<div class="absolute bottom-10 left-1/2 -translate-x-1/2 bg-black text-white px-6 py-3 rounded-full shadow-xl font-bold border border-white">💡 Tip: ${d.note}</div>` : ''}</div>`;
-                else if (d.layout === 'clean') content = `<div class="slide slide-clean ${i===0?'active':''}"><h2 class="text-5xl font-serif font-bold mb-12 text-black">${d.title}</h2>${d.isLive ? `<div id="live-monitor" class="w-full h-[50vh] overflow-y-auto bg-white border-2 border-black rounded-xl p-6 shadow-inner text-black">Loading data...</div><button onclick="hardResetData()" class="mt-6 px-6 py-2 bg-red-100 text-red-600 font-bold rounded border border-red-600 hover:bg-red-200 transition">RESET DATA KELAS</button>` : `<div class="text-2xl text-black leading-relaxed max-w-4xl w-full font-medium">${d.body}</div>`}</div>`;
+                if (d.layout === 'cinematic') {
+                    // Ada fallback link kalau file lokal tak ada
+                    content = `<div class="slide slide-cinematic ${i===0?'active':''}" style="background-image: url('${d.bg}')"><div class="cinematic-content animate-in"><p class="tracking-widest uppercase text-sm mb-4 font-bold text-white/80">${d.subtitle}</p><h1 class="text-8xl font-serif font-bold text-white">${d.title}</h1></div></div>`;
+                }
+                else if (d.layout === 'split') {
+                    content = `<div class="slide slide-split ${i===0?'active':''}"><div class="split-half ${d.classLeft}"><h2 class="text-4xl font-bold mb-8 uppercase tracking-tighter">${d.titleLeft}</h2><div class="text-2xl italic serif leading-relaxed">${d.contentLeft}</div></div><div class="split-half ${d.classRight}"><h2 class="text-4xl font-bold mb-8 uppercase tracking-tighter">${d.titleRight}</h2><div class="text-2xl italic serif leading-relaxed">${d.contentRight}</div></div></div>`;
+                }
+                else if (d.layout === 'clean') {
+                    content = `<div class="slide slide-clean ${i===0?'active':''}"><h2 class="text-6xl font-serif font-bold mb-16">${d.title}</h2><div class="text-3xl max-w-4xl">${d.body}</div></div>`;
+                }
+                else if (d.layout === 'live') {
+                    content = `<div class="slide ${i===0?'active':''} flex flex-col pt-12 px-12 pb-24 h-screen bg-slate-50 text-black">
+                        <div class="flex justify-between items-end mb-6">
+                            <div>
+                                <h2 class="text-5xl font-serif font-bold">${d.title}</h2>
+                                <p class="text-slate-400 font-bold tracking-widest uppercase text-xs mt-2">Pantau ayat majmuk & pendapat pelajar secara lansung</p>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span class="text-sm font-bold bg-green-100 text-green-700 px-4 py-3 rounded-xl flex items-center gap-2 shadow-sm"><div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div> SANGAT AKTIF</span>
+                                <button onclick="resetDataSheet()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-3 rounded-xl text-sm font-bold shadow-md transition-all flex items-center gap-2"><i data-lucide="trash-2" class="w-4 h-4"></i> RESET DATA</button>
+                            </div>
+                        </div>
+                        <div id="live-monitor" class="w-full h-full overflow-y-auto custom-scrollbar pr-4">
+                            <div class="text-center text-slate-400 mt-20 italic">Menunggu respon pelajar...</div>
+                        </div>
+                    </div>`;
+                }
                 return content;
             }).join('');
             document.getElementById('teacher-mode').classList.remove('hidden');
-            if(SCRIPT_URL) setInterval(fetchLiveFeed, 1000);
             updateSlideCounter();
+
+            if(monitorInterval) clearInterval(monitorInterval);
+            fetchLiveResponses(); 
+            monitorInterval = setInterval(fetchLiveResponses, 5000);
+            lucide.createIcons();
+        }
+
+        function resetDataSheet() {
+            const pwd = prompt("Masukkan kata laluan untuk mengosongkan rekod (Reset):");
+            if (pwd === "21") {
+                const monitor = document.getElementById('live-monitor');
+                if(monitorInterval) clearInterval(monitorInterval);
+                
+                monitor.innerHTML = '<div class="text-center font-bold text-blue-600 mt-20 animate-pulse">Sedang mengosongkan data secara paksa...</div>';
+                
+                fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({ action: 'reset' }),
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+                })
+                .then(res => res.json())
+                .then(data => {
+                    alert("Data berjaya dikosongkan. Sila pastikan kod GAS telah dikemaskini juga.");
+                    monitor.innerHTML = '<div class="text-center text-slate-400 mt-20 italic">Belum ada data masuk...</div>';
+                    lastMonitorHTML = ""; 
+                    monitorInterval = setInterval(fetchLiveResponses, 5000);
+                })
+                .catch(err => {
+                    alert("CORS Error / Gagal menghubungi pelayan. Pastikan kod Google Apps Script (GAS) dah ada fungsi 'action === reset'!");
+                    monitorInterval = setInterval(fetchLiveResponses, 5000);
+                });
+            } else if (pwd !== null) {
+                alert("Kata laluan salah. Akses ditolak!");
+            }
+        }
+
+        async function fetchLiveResponses() {
+            if(!SCRIPT_URL) return;
+            try {
+                const res = await fetch(SCRIPT_URL + "?t=" + new Date().getTime());
+                const data = await res.json();
+                const monitor = document.getElementById('live-monitor');
+                if(monitor) {
+                    let newHTML = '';
+                    if(!data || data.length === 0) {
+                        newHTML = '<div class="text-center text-slate-400 mt-20 italic">Belum ada data masuk...</div>';
+                    } else {
+                        const groupedData = {};
+                        data.forEach(d => {
+                            const safeName = (d.name != null) ? String(d.name) : "Pelajar Misteri";
+                            const name = safeName.toUpperCase();
+                            if(!groupedData[name]) groupedData[name] = [];
+                            groupedData[name].push(d);
+                        });
+
+                        newHTML = '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 items-start pb-10">';
+                        for(const studentName in groupedData) {
+                            let studentCard = `
+                            <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                                <h3 class="font-bold text-xl text-blue-600 border-b-2 border-slate-100 pb-3 mb-4 flex justify-between items-center">
+                                    ${studentName} 
+                                    <span class="text-[10px] bg-slate-100 text-slate-500 px-2 py-1 rounded uppercase tracking-widest">${groupedData[studentName].length} Rekod</span>
+                                </h3>
+                                <div class="space-y-4">
+                            `;
+                            groupedData[studentName].sort((a,b) => String(a.phase || '').localeCompare(String(b.phase || '')));
+
+                            groupedData[studentName].forEach(d => {
+                                let contentHtml = '';
+                                if(d.content && String(d.content).startsWith('data:image')) {
+                                    contentHtml = `<img src="${d.content}" class="w-full h-24 mt-2 border border-slate-200 rounded-lg object-contain bg-slate-50 hover:scale-150 transform transition-transform origin-top-left z-50">`;
+                                } else {
+                                    contentHtml = `<p class="font-medium text-sm text-slate-700 mt-1 leading-relaxed">${d.content}</p>`;
+                                }
+                                const safePhase = String(d.phase || '-');
+                                studentCard += `
+                                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
+                                        <span class="text-[10px] font-bold bg-black text-white px-2 py-0.5 rounded uppercase tracking-widest">Fasa ${safePhase.charAt(0)}</span>
+                                        ${contentHtml}
+                                    </div>
+                                `;
+                            });
+                            studentCard += `</div></div>`;
+                            newHTML += studentCard;
+                        }
+                        newHTML += '</div>';
+                    }
+                    if (newHTML !== lastMonitorHTML) {
+                        monitor.innerHTML = newHTML;
+                        lastMonitorHTML = newHTML;
+                    }
+                }
+            } catch (err) {
+                console.error("Ralat Live Monitor:", err);
+            }
+        }
+
+        async function sendDataToGAS(phase, content) {
+            if(!SCRIPT_URL) return;
+            try {
+                fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({ name: userData.name, phase: phase, content: content }),
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+                });
+            } catch(e) { console.error("Gagal hantar data", e); }
         }
 
         function changeSlide(dir) {
@@ -341,148 +518,201 @@
             slides[currentSlide].classList.add('active');
             updateSlideCounter();
         }
-        function updateSlideCounter() { document.getElementById('slide-number').innerText = `${currentSlide+1}/${teacherSlidesData.length}`; }
+
+        function updateSlideCounter() {
+            document.getElementById('slide-number').innerText = `${currentSlide+1}/${teacherSlidesData.length}`;
+        }
+
+        function teacherColdCall() {
+            const modal = document.getElementById('cold-call-modal');
+            const display = document.getElementById('picked-student');
+            modal.classList.remove('hidden');
+            display.innerText = "MEMUTAR...";
+            display.classList.add('animate-pulse');
+            
+            setTimeout(() => {
+                const random = studentsList[Math.floor(Math.random() * studentsList.length)];
+                display.innerText = random.toUpperCase();
+                display.classList.remove('animate-pulse');
+            }, 800);
+        }
 
         function renderPhase1() {
-            const q = phase1Questions[phase1Step];
+            const data = phase1Data[0];
             const container = document.getElementById('phase1-content');
-            // FIX: Use handleImageError function
+            // Ditambah onerror untuk paparkan link unsplash jika gambar fail tak dijumpai di local
             container.innerHTML = `
-                <div class="relative w-full h-72 mx-auto rounded overflow-hidden border-4 border-black shadow-2xl mb-6 bg-gray-200">
-                    <img src="${q.img}" class="w-full h-full object-cover" onerror="handleImageError(this, '${q.img}')">
-                    <div class="absolute top-2 right-2 bg-black text-white px-2 py-1 text-xs font-bold uppercase">${q.title}</div>
+                <div class="relative w-full h-80 rounded-[2rem] overflow-hidden border-2 border-black mb-10 shadow-2xl">
+                    <img src="${data.img}" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1626084478174-8db64186eaee?q=80&w=2070'">
                 </div>
-                <h2 class="text-3xl serif font-bold text-black mb-2">Pilih Kapsyen Terbaik</h2>
-                <p class="text-black font-medium mb-6">Tema: ${q.type}</p>
-                <div class="grid grid-cols-1 gap-4 text-left">
-                    <button onclick="checkPhase1Answer('${q.options[0].type}')" class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md hover:bg-red-50 border-2 border-black transition group">
-                        <span class="font-bold text-gray-500 text-xs uppercase mb-1 block">Pilihan A</span>
-                        <span class="text-lg font-serif text-black group-hover:text-red-700">${q.options[0].text}</span>
+                <h2 class="text-3xl serif font-bold mb-8">${data.q}</h2>
+                <div class="grid grid-cols-1 gap-4">
+                    <button onclick="checkPhase1(0)" class="p-6 bg-white border-2 border-black rounded-2xl text-left hover:bg-red-50 transition group">
+                        <span class="block text-[10px] font-bold text-slate-400 mb-1 uppercase">Pilihan A</span>
+                        <span class="text-xl font-medium">${data.options[0]}</span>
                     </button>
-                    <button onclick="checkPhase1Answer('${q.options[1].type}')" class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md hover:bg-emerald-50 border-2 border-black transition group">
-                         <span class="font-bold text-emerald-700 text-xs uppercase mb-1 block">Pilihan B</span>
-                        <span class="text-lg font-serif text-black group-hover:text-emerald-800">${q.options[1].text}</span>
+                    <button onclick="checkPhase1(1)" class="p-6 bg-white border-2 border-black rounded-2xl text-left hover:bg-emerald-50 transition group">
+                        <span class="block text-[10px] font-bold text-slate-400 mb-1 uppercase">Pilihan B</span>
+                        <span class="text-xl font-medium">${data.options[1]}</span>
                     </button>
                 </div>
             `;
         }
 
-        function checkPhase1Answer(type) {
-            if(type === 'fact') {
-                alert(phase1Questions[phase1Step].options[0].feedback);
+        function checkPhase1(idx) {
+            if(idx === 1) {
+                alert("TEPAT! Suasana kampung aman kerana unsur alam semula jadi.");
+                jumpToPhase(2);
             } else {
-                // AUTO SEND PHASE 1
-                submitToGas(`[Fasa 1: ${phase1Questions[phase1Step].type}] Jawapan Tepat: Pilihan ${type}`);
-                
-                if(phase1Step < phase1Questions.length - 1) {
-                    phase1Step++;
-                    renderPhase1();
-                } else {
-                    document.getElementById('phase-1').classList.add('hidden');
-                    document.getElementById('phase-2').classList.remove('hidden');
-                    chatStage = 0;
-                    const firstMsg = chatFlow[0].bot;
-                    addBubble("Neo", typeof firstMsg === 'function' ? firstMsg() : firstMsg);
-                }
+                alert("Kurang tepat. Adakah bangunan dan kenderaan membawa ketenangan?");
             }
+        }
+
+        function renderPhase2() {
+            const container = document.getElementById('q-container');
+            let html = '';
+            qDataP2.forEach((item, index) => {
+                let btnHtml = item.opts.map((opt, optIdx) => {
+                    let isCorrect = (optIdx === item.ans);
+                    return `<button onclick="checkVocabMulti(this, ${isCorrect}, ${index})" class="px-4 py-2 bg-white border border-slate-300 rounded-xl hover:bg-slate-100 transition">${opt}</button>`;
+                }).join('');
+
+                html += `
+                <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200" id="q${index}-box">
+                    <p class="text-sm font-bold text-blue-600 mb-2 uppercase tracking-widest">Soalan ${index + 1}</p>
+                    <p class="text-lg font-medium mb-4">${item.q}</p>
+                    <div class="flex gap-3 flex-wrap">
+                        ${btnHtml}
+                    </div>
+                </div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function checkVocabMulti(btn, isCorrect, qIndex) {
+            const buttons = btn.parentElement.querySelectorAll('button');
+            buttons.forEach(b => {
+                b.classList.remove('bg-emerald-500', 'text-white', 'border-emerald-500', 'bg-red-500', 'border-red-500');
+                b.classList.add('bg-white');
+            });
+
+            if(isCorrect) {
+                btn.classList.add('bg-emerald-500', 'text-white', 'border-emerald-500');
+                btn.classList.remove('bg-white');
+                scoresP2[qIndex] = true;
+            } else {
+                btn.classList.add('bg-red-500', 'text-white', 'border-red-500');
+                btn.classList.remove('bg-white');
+                scoresP2[qIndex] = false;
+            }
+
+            if(scoresP2.every(val => val === true)) {
+                const nextBtn = document.getElementById('btn-next-phase-3');
+                nextBtn.disabled = false;
+                nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                sendDataToGAS("2 (Kata Hubung)", "Lulus Ujian 10 Kata Hubung");
+            } else {
+                const nextBtn = document.getElementById('btn-next-phase-3');
+                nextBtn.disabled = true;
+                nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
+        function jumpToPhase(n) {
+            [1,2,3,4,5,6].forEach(i => {
+                const el = document.getElementById(`phase-${i}`);
+                if(el) el.classList.add('hidden');
+            });
+            document.getElementById(`phase-${n}`).classList.remove('hidden');
+            if(n === 3 && chatStage === 0) { 
+                addBubble("Neo", "Hai! Apakah aktiviti atau benda yang paling awak suka lakukan apabila berada di kampung?"); 
+            }
+            if(n === 5) { setTimeout(initCanvas, 100); }
         }
 
         function addBubble(sender, text) {
             const win = document.getElementById('chat-window');
             const d = document.createElement('div');
             d.className = `chat-bubble ${sender==='Neo'?'bubble-bot':'bubble-user'} animate-in`;
-            d.innerHTML = `<p class="text-xs font-bold uppercase mb-1 opacity-50">${sender}</p><p class="font-medium">${text}</p>`;
+            d.innerHTML = `<p class="text-[10px] font-bold uppercase opacity-40 mb-1">${sender}</p><p class="font-medium">${text}</p>`;
             win.appendChild(d);
             win.scrollTop = win.scrollHeight;
         }
 
         function sendMessage() {
-            const inputEl = document.getElementById('studentInput');
-            const msg = inputEl.value.trim();
+            const input = document.getElementById('studentInput');
+            const msg = input.value.trim();
             if(!msg) return;
             addBubble(userData.name, msg);
+            input.value = "";
             
-            // AUTO SEND PHASE 2 (CHAT) - Send each student message
-            submitToGas(`[Fasa 2: Chat] ${msg}`);
+            const invalidWords = ['entah', 'tak tahu', 'tak tau', 'taknak', 'malas', 'ntah', 'bosa', 'tah'];
+            const lowerMsg = msg.toLowerCase();
+            const isInvalid = invalidWords.some(word => lowerMsg.includes(word));
 
-            inputEl.value = "";
-            document.getElementById('current-hint').style.display = 'none';
-            const currentStageObj = chatFlow[chatStage];
-            const isValid = currentStageObj.validate(msg);
-            if (!isValid) { setTimeout(() => addBubble("Neo", currentStageObj.errorMsg), 600); return; }
-            const nextStep = currentStageObj.next(msg);
-            if (nextStep === "DONE") {
+            if (msg.length < 8 || isInvalid) {
                 setTimeout(() => {
-                    addBubble("Neo", "Hebat! Sekarang kita cuba cabaran visual.");
-                    setTimeout(() => {
-                        document.getElementById('phase-2').classList.add('hidden');
-                        document.getElementById('phase-3').classList.remove('hidden');
-                    }, 2000);
+                    addBubble("Neo", "Eh, jawapan tu macam ringkas sangat atau kurang sesuai bro! Cuba fikir dan huraikan lagi. Jangan cakap entah! 😉");
                 }, 800);
-            } else {
-                chatStage = nextStep - 1;
-                const nextBotMsg = chatFlow[chatStage].bot;
-                const txt = typeof nextBotMsg === 'function' ? nextBotMsg() : nextBotMsg;
-                setTimeout(() => addBubble("Neo", txt), 800);
+                return; 
             }
+
+            sendDataToGAS("3 (Chat Pendapat)", msg);
+            
+            setTimeout(() => {
+                if(chatStage === 0) {
+                    addBubble("Neo", `Menarik! Tetapi, mengapakah awak menyukainya? Cuba berikan alasan menggunakan perkataan 'kerana'.`);
+                    chatStage++;
+                } else if(chatStage === 1) {
+                    addBubble("Neo", "Alasan yang sangat bernas! Nampak gayanya awak dah faham cara menghuraikan pendapat. Sila tekan butang 'SETERUSNYA' di bahagian bawah untuk ke cabaran visual.");
+                    
+                    const win = document.getElementById('chat-window');
+                    const btn = document.createElement('div');
+                    btn.className = "text-center mt-6 animate-in";
+                    btn.innerHTML = `<button onclick="jumpToPhase(4)" class="bg-black text-white px-8 py-3 rounded-xl font-bold uppercase tracking-widest text-sm hover:bg-slate-800 transition">Seterusnya <i data-lucide="arrow-right" class="inline w-4 h-4 ml-1"></i></button>`;
+                    win.appendChild(btn);
+                    lucide.createIcons();
+                    win.scrollTop = win.scrollHeight;
+                    
+                    chatStage++;
+                }
+            }, 1000);
         }
 
         function submitCameraTask() {
-            const val = document.getElementById('cameraInput').value.trim();
-            const words = val.split(/\s+/).length;
-            const feedback = document.getElementById('camera-feedback');
-            if (words < 5) { feedback.innerText = "Ayat terlalu pendek. Sila huraikan warna dan perasaan."; feedback.classList.remove('hidden'); return; }
+            const input1 = document.getElementById('cameraInput1').value;
+            const input2 = document.getElementById('cameraInput2').value;
             
-            // AUTO SEND PHASE 3
-            submitToGas(`[Fasa 3: Lensa] ${val}`);
+            if(input1.length < 15 || input2.length < 15) {
+                return alert("Sila bina sekurang-kurangnya 1 ayat majmuk yang lengkap bagi setiap gambar bro!");
+            }
             
-            feedback.classList.add('hidden');
-            document.getElementById('phase-3').classList.add('hidden');
-            document.getElementById('phase-4').classList.remove('hidden');
-            
-            // Re-init canvas size when Phase 4 becomes visible
-            setTimeout(initCanvas, 200);
+            const combinedAns = `Situasi 1: ${input1} || Situasi 2: ${input2}`;
+            sendDataToGAS("4 (Huraian Suasana)", combinedAns);
+            jumpToPhase(5);
         }
 
-        function handleEnter(e) { if(e.key === 'Enter') sendMessage(); }
-        function toggleHint() { const el = document.getElementById('current-hint'); el.innerText = `💡 Hint: Jawab dengan jujur dan penuh.`; el.style.display = 'block'; }
-        function toggleTranslation() { document.getElementById('translation-box').classList.toggle('hidden'); }
-        function teacherBypass() { if(prompt("Kod Guru") === "21") { toggleTeacherControls(); } }
-        function toggleTeacherControls() { const controls = document.getElementById('teacher-controls'); controls.classList.toggle('hidden'); }
-
-        function jumpToPhase(n) {
-            [1,2,3,4,5].forEach(i => document.getElementById(`phase-${i}`).classList.add('hidden'));
-            document.getElementById(`phase-${n}`).classList.remove('hidden');
-            if(n === 1) { phase1Step = 0; renderPhase1(); }
-            else if(n === 2) { document.getElementById('chat-window').innerHTML = ''; chatStage = 0; const firstMsg = chatFlow[0].bot; addBubble("Neo", typeof firstMsg === 'function' ? firstMsg() : firstMsg); }
-            else if(n === 4) { setTimeout(initCanvas, 200); }
-        }
-
-        // --- CANVAS LOGIC ---
+        // Canvas Drawing Logic
         function initCanvas() {
             const container = document.getElementById('canvas-container');
             canvas = document.getElementById('drawingCanvas');
-            // Set canvas size to match visual size (fix resolution)
             canvas.width = container.offsetWidth;
             canvas.height = container.offsetHeight;
             ctx = canvas.getContext('2d');
-            ctx.strokeStyle = "black";
-            ctx.lineWidth = 2;
-            ctx.lineCap = "round";
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 3;
+            ctx.lineCap = 'round';
 
-            // Event Listeners
-            canvas.addEventListener('mousedown', startDraw);
+            canvas.addEventListener('mousedown', startDrawing);
             canvas.addEventListener('mousemove', draw);
-            canvas.addEventListener('mouseup', endDraw);
-            canvas.addEventListener('mouseout', endDraw);
+            canvas.addEventListener('mouseup', stopDrawing);
             
-            // Touch Support
-            canvas.addEventListener('touchstart', (e) => { e.preventDefault(); startDraw(e.touches[0]); });
+            canvas.addEventListener('touchstart', (e) => { e.preventDefault(); startDrawing(e.touches[0]); });
             canvas.addEventListener('touchmove', (e) => { e.preventDefault(); draw(e.touches[0]); });
-            canvas.addEventListener('touchend', endDraw);
+            canvas.addEventListener('touchend', stopDrawing);
         }
 
-        function startDraw(e) {
+        function startDrawing(e) {
             isDrawing = true;
             ctx.beginPath();
             const rect = canvas.getBoundingClientRect();
@@ -490,67 +720,110 @@
         }
 
         function draw(e) {
-            if (!isDrawing) return;
+            if(!isDrawing) return;
             const rect = canvas.getBoundingClientRect();
             ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
             ctx.stroke();
         }
 
-        function endDraw() {
-            isDrawing = false;
+        function stopDrawing() { isDrawing = false; }
+        function clearCanvas() { ctx.clearRect(0,0,canvas.width,canvas.height); }
+
+        function submitClozePassage() {
+            const c1 = document.getElementById('cloze1').value || '...';
+            const c2 = document.getElementById('cloze2').value || '...';
+            const c3 = document.getElementById('cloze3').value || '...';
+            const c4 = document.getElementById('cloze4').value || '...';
+            const c5 = document.getElementById('cloze5').value || '...';
+            
+            const p4_1 = document.getElementById('cameraInput1').value || 'Tiada jawapan huraian suasana.';
+            const p4_2 = document.getElementById('cameraInput2').value || 'Tiada jawapan huraian aktiviti.';
+
+            const textAns = `Tempat: ${c1} | Suasana: ${c2} | Sebab: Kerana ${c3} | Aktiviti: ${c4} | Pendapat: ${c5}`;
+            sendDataToGAS("5 (Teks Pendapat)", textAns);
+
+            const canvasData = canvas ? canvas.toDataURL('image/png') : '';
+            if (canvasData) sendDataToGAS("5 (Lukisan Memori)", canvasData);
+
+            const resultHTML = `
+                <div class="border-b-2 border-slate-100 pb-4 mb-6">
+                    <p class="text-xs font-bold uppercase tracking-widest text-slate-400">Buku Skrap Digital</p>
+                    <h3 class="font-serif text-3xl font-bold text-black mt-1">Karya ${userData.name}</h3>
+                </div>
+                
+                <div class="space-y-6 text-left text-lg">
+                    <div class="bg-blue-50 p-5 rounded-2xl border border-blue-100">
+                        <span class="block font-bold text-blue-800 text-sm uppercase tracking-widest mb-2"><i data-lucide="image" class="inline w-4 h-4 mr-1"></i> Pemerhatian 1: Suasana</span>
+                        <p class="text-slate-800 font-medium">${p4_1}</p>
+                    </div>
+                    
+                    <div class="bg-emerald-50 p-5 rounded-2xl border border-emerald-100">
+                        <span class="block font-bold text-emerald-800 text-sm uppercase tracking-widest mb-2"><i data-lucide="activity" class="inline w-4 h-4 mr-1"></i> Pemerhatian 2: Aktiviti</span>
+                        <p class="text-slate-800 font-medium">${p4_2}</p>
+                    </div>
+
+                    <div class="postcard-bg p-8 rounded-2xl border-2 border-black relative mt-8">
+                        <i data-lucide="mail" class="absolute top-6 right-6 w-8 h-8 text-black/20"></i>
+                        <p class="font-serif italic leading-loose">
+                            "Saya sedang bercuti di <span class="font-bold border-b border-black">${c1}</span>. Suasana di sini sangat <span class="font-bold border-b border-black">${c2}</span> kerana <span class="font-bold border-b border-black">${c3}</span>. Pada waktu petang, saya dan keluarga akan <span class="font-bold border-b border-black">${c4}</span>. Pada pendapat saya, kehidupan di kampung lebih baik daripada di bandar kerana <span class="font-bold border-b border-black">${c5}</span>."
+                        </p>
+                    </div>
+
+                    ${canvasData ? `
+                    <div class="mt-8">
+                        <span class="block font-bold text-slate-500 text-sm uppercase tracking-widest mb-3 text-center"><i data-lucide="pen-tool" class="inline w-4 h-4 mr-1"></i> Lakaran Memori</span>
+                        <img src="${canvasData}" class="w-full h-auto border-2 border-dashed border-slate-300 rounded-2xl bg-white p-2">
+                    </div>` : ''}
+                </div>
+            `;
+            
+            document.getElementById('student-result-container').innerHTML = resultHTML;
+            lucide.createIcons();
+
+            jumpToPhase(6);
         }
 
-        function clearCanvas() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        function teacherBypass() { 
+            const pwd = prompt("KOD AKSES GURU:");
+            if(pwd === "21") { 
+                document.getElementById('teacher-controls').classList.remove('hidden');
+                
+                scoresP2.fill(true);
+                const btnNextP2 = document.getElementById('btn-next-phase-3');
+                if(btnNextP2) {
+                    btnNextP2.disabled = false;
+                    btnNextP2.classList.remove('opacity-50', 'cursor-not-allowed');
+                }
+                
+                alert("Akses Guru (Bypass) diaktifkan! Cikgu Izan boleh guna butang [1] hingga [5] kat atas untuk lompat fasa.");
+            } else if (pwd !== null) {
+                alert("Kod akses salah bro!");
+            }
         }
-
-        async function submitClozePassage() {
-            // Updated answers list for 6 questions
-            const answers = [
-                {id: 'cloze1', keys: ['pokok', 'sawah', 'hutan', 'bukit', 'trees', 'paddy', 'forest', 'kebun']},
-                {id: 'cloze2', keys: ['segar', 'nyaman', 'sejuk', 'dingin', 'fresh', 'cool']},
-                {id: 'cloze3', keys: ['tenang', 'merdu', 'damai', 'bising', 'deras', 'calm', 'soothing', 'nyaring']},
-                {id: 'cloze4', keys: ['peramah', 'baik', 'rajin', 'mesra', 'friendly', 'kind', 'sopan']},
-                {id: 'cloze5', keys: ['gembira', 'syukur', 'rindu', 'sayu', 'happy', 'grateful', 'tenang']},
-                {id: 'cloze6', keys: ['datang', 'melawat', 'pergi', 'come', 'visit', 'singgah']}
-            ];
-            
-            let score = 0; 
-            let results = [];
-            
-            answers.forEach(a => {
-                const el = document.getElementById(a.id);
-                const val = el.value.trim().toLowerCase();
-                const correct = a.keys.some(k => val.includes(k));
-                if(correct) { el.classList.add('correct'); el.classList.remove('wrong'); score++; } 
-                else { el.classList.add('wrong'); el.classList.remove('correct'); }
-                results.push(val);
-            });
-            
-            const fb = document.getElementById('cloze-feedback');
-            // Allow 2 mistakes (4/6 to pass)
-            if(score < 4) { fb.innerHTML = `<span class="text-red-600 font-bold">Cuba lagi. ${score}/6 betul.</span>`; return; }
-            fb.innerHTML = `<span class="text-green-600 font-bold">Tahniah! Poskad yang lengkap dan menarik.</span>`;
-            
-            // Capture Drawing Data (Low Quality JPG to save space)
-            const drawingData = canvas.toDataURL('image/jpeg', 0.5);
-            
-            // AUTO SEND PHASE 4 (Final)
-            await submitToGas(`[Fasa 4: Poskad] Jawapan: ${results.join(', ')} | [LUKISAN] Data: ${drawingData.substring(0, 100)}... (lihat data penuh)`);
-            
-            setTimeout(() => { document.getElementById('phase-4').classList.add('hidden'); document.getElementById('phase-5').classList.remove('hidden'); }, 2000);
-        }
-
-        async function submitToGas(msg) { if(!SCRIPT_URL) return; try { await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ name: userData.name, message: msg }) }); } catch(e) {} }
-        async function fetchLiveFeed() { if(!SCRIPT_URL) return; try { const res = await fetch(SCRIPT_URL); const data = await res.json(); const hash = JSON.stringify(data); if(hash === lastHash) return; lastHash = hash; const mon = document.getElementById('live-monitor'); mon.innerHTML = data.length ? data.map(d => `<div class="mb-3 p-3 bg-white border border-black rounded shadow-sm flex justify-between items-center"><div><span class="font-bold text-black block">${d.name}</span><span class="text-black font-medium">${d.message}</span></div><span class="text-xs text-black bg-gray-100 border border-black px-2 py-1 rounded">${d.timestamp}</span></div>`).reverse().join('') : '<div class="text-center text-black font-medium mt-10">Belum ada data...</div>'; } catch(e) {} }
-        async function hardResetData() { if(!confirm("Reset semua data kelas?")) return; await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({action:'reset'})}); document.getElementById('live-monitor').innerHTML = "Clearing database..."; }
 
         document.addEventListener('keydown', (e) => {
-            if(e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-            if(e.key.toLowerCase() === 'f') document.documentElement.requestFullscreen().catch(()=>{});
-            const tMode = document.getElementById('teacher-mode');
-            if(!tMode.classList.contains('hidden')) { if(e.key === 'ArrowRight') changeSlide(1); if(e.key === 'ArrowLeft') changeSlide(-1); }
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+            if (e.key === 'f' || e.key === 'F') {
+                e.preventDefault();
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen().catch(err => {
+                        console.log(`Gagal mengaktifkan fullscreen: ${err.message}`);
+                    });
+                } else {
+                    if (document.exitFullscreen) document.exitFullscreen();
+                }
+            }
+
+            if (e.key === "ArrowRight") {
+                e.preventDefault(); 
+                if(!document.getElementById('teacher-mode').classList.contains('hidden')) changeSlide(1);
+            } else if (e.key === "ArrowLeft") {
+                e.preventDefault();
+                if(!document.getElementById('teacher-mode').classList.contains('hidden')) changeSlide(-1);
+            }
         });
+
         window.onload = () => lucide.createIcons();
     </script>
 </body>
